@@ -1,28 +1,57 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from 'react';
+import { theme } from './theme';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { Header } from './components/header';
+import { StarterPage } from './components/starter.page';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { SignInPage } from './components/sign-in.page';
+
+const styles = {
+  root: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column'
+  }
+};
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: false
+
+    };
+  }
+
   render() {
+    const { classes } = this.props;
+    const { auth } = this.state;
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MuiThemeProvider theme={ theme }>
+        <div className={ classes.root }>
+          <Router>
+            <Fragment>
+              <Header withMenu={ auth }/>
+              { !auth && (
+                <Switch>
+                  <Route path="/" exact component={ StarterPage }/>
+                  <Route path="/signin" exact component={ SignInPage }/>
+                </Switch>)
+              }
+              { auth && (
+                <Switch>
+                  <Route path="/" exact component={ Header }/>
+                </Switch>)
+              }
+            </Fragment>
+          </Router>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+export default (withStyles)(styles)(App);
