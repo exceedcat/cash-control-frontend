@@ -5,13 +5,20 @@ export const AUTH_SIGN_IN_SUCCESS = 'AUTH_SIGN_IN_SUCCESS';
 export const AUTH_SIGN_IN_FAILURE = 'AUTH_SIGN_IN_FAILURE';
 
 const signIn = ({ login, password }) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(request());
 
-    authService.signIn({
-      login,
-      password
-    }).then(r => console.log('in action', r));
+    try {
+      const result = await authService.signIn({
+        login,
+        password
+      });
+
+      dispatch(success(result));
+    }
+    catch (e) {
+      dispatch(failure());
+    }
   };
 
   function request() {
