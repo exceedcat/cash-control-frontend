@@ -7,7 +7,6 @@ import { DefaultButton } from './default-button';
 import { authActions } from '../actions/auth.actions';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography/Typography';
-import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
   root: {

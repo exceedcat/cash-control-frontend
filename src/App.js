@@ -13,6 +13,8 @@ import {
 import { SignInPage } from './components/sign-in.page';
 import { SignUpPage } from './components/sign-up.page';
 import { connect } from 'react-redux';
+import { SpendingPage } from './components/spending-page';
+
 
 const styles = {
   root: {
@@ -26,9 +28,7 @@ const styles = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   render() {
@@ -49,7 +49,7 @@ class App extends Component {
               }
               { auth && (
                 <Switch>
-                  <Route path="/" exact component={ Header }/>
+                  <Route path="/" exact component={ SpendingPage }/>
                   <Redirect to="/" />
                 </Switch>)
               }
