@@ -6,13 +6,18 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core';
 import { AppName } from '../constants/app-name';
+import { Link } from 'react-router-dom';
 
-const styles = {
+const styles = theme => ({
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+  link: {
+    color: theme.palette.primary.contrastText,
+    textDecoration: 'none'
+  }
+});
 
 
 const AppHeader = ({ withMenu, classes }) => (
@@ -24,8 +29,10 @@ const AppHeader = ({ withMenu, classes }) => (
         <MenuIcon/>
       </IconButton>
       }
-      <Typography variant="h6" color="inherit" >
-        { AppName }
+      <Typography variant="h6" color="inherit">
+        <Link to="/" className={classes.link}>
+          { AppName }
+        </Link>
       </Typography>
     </Toolbar>
   </AppBar>

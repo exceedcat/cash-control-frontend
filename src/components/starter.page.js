@@ -1,4 +1,3 @@
-import { DefaultButton } from './default-button';
 import { ButtonTypes } from '../constants/button-types';
 import Grid from '@material-ui/core/Grid/Grid';
 import React from 'react';
@@ -20,7 +19,8 @@ const styles = theme => ({
   }
 });
 
-const SignInLink = props => (<Link to="/signin" {...props} />);
+const SignInLink = props => (<Link to="/signin" { ...props } />);
+const SignUpLink = props => (<Link to="/signup" { ...props } />);
 
 const Starter = ({ classes }) => (
   <Grid
@@ -35,9 +35,9 @@ const Starter = ({ classes }) => (
         Sign In
       </LinkButton>
       <span className={ classes.space }>{ ' ' }</span>
-      <DefaultButton type={ ButtonTypes.secondary }>
+      <LinkButton type={ ButtonTypes.secondary } component={ SignUpLink }>
         Sign Up
-      </DefaultButton>
+      </LinkButton>
     </div>
   </Grid>
 );

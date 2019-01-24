@@ -6,6 +6,7 @@ import { StarterPage } from './components/starter.page';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { SignInPage } from './components/sign-in.page';
+import { SignUpPage } from './components/sign-up.page';
 
 const styles = {
   root: {
@@ -39,6 +40,7 @@ class App extends Component {
                 <Switch>
                   <Route path="/" exact component={ StarterPage }/>
                   <Route path="/signin" exact component={ SignInPage }/>
+                  <Route path="/signup" exact component={ SignUpPage }/>
                 </Switch>)
               }
               { auth && (

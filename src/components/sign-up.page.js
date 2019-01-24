@@ -7,7 +7,6 @@ import { DefaultButton } from './default-button';
 import { authActions } from '../actions/auth.actions';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography/Typography';
-import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -25,7 +24,11 @@ const styles = theme => ({
   }
 });
 
-class SignIn extends Component {
+// todo: refactor validation?
+// todo: show error message
+// todo: show spinner
+
+class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,9 +36,17 @@ class SignIn extends Component {
         value: '',
         error: false
       },
+      email: {
+        value: '',
+        error: false
+      },
       password: {
         value: '',
         error: false
+      },
+      passwordConfirm: {
+        value: '',
+        // error: false
       },
       isValid: false,
       showErrors: false
@@ -43,22 +54,35 @@ class SignIn extends Component {
   }
 
   validateField = value => value.length;
+  validateEmail = value => value.includes('@');
+  validatePasswords = (password, confirm) => password === confirm;
+
   validateForm = () => {
-    this.setState(({ login, password }) => {
+    let isValid = true;
+    this.setState(({ login, password, email, passwordConfirm }) => {
       const errors = {
         login: !this.validateField(login.value),
-        password: !this.validateField(password.value)
+        email: !this.validateEmail(email.value),
+        password: !this.validateField(password.value) || !this.validatePasswords(password.value, passwordConfirm.value)
       };
+
+      isValid = Object.keys(errors).reduce((prev, curr) => prev && !errors[curr], true);
 
       return ({
         login: { ...login, error: errors.login },
+        email: { ...email, error: errors.email },
         password: {
           ...password,
           error: errors.password
         },
-        isValid: Object.keys(errors).reduce((prev, curr) => prev && !errors[curr], true)
+        passwordConfirm: {
+          ...passwordConfirm,
+          error: errors.password
+        },
+        isValid
       });
     });
+    return isValid;
   };
 
   handleChange = field => event => {
@@ -70,22 +94,23 @@ class SignIn extends Component {
   };
 
   handleSubmit = () => {
-    const { signIn } = this.props;
-    const { password, login, isValid } = this.state;
+    const { signUp } = this.props;
+    const { password, login, email, isValid } = this.state;
     if (!isValid) {
       this.validateForm();
       this.setState({showErrors: true});
       return;
     }
-    signIn({ login: login.value, password: password.value });
+    signUp({
+      login: login.value,
+      password: password.value,
+      email: email.value
+    });
   };
 
   render() {
-    const { classes, user } = this.props;
-    const { login, password, showErrors } = this.state;
-    if (user.token) {
-      return (<Redirect to="/" />);
-    }
+    const { classes } = this.props;
+    const { login, email, password, passwordConfirm, showErrors } = this.state;
     return (
       <Grid
         container
@@ -95,7 +120,7 @@ class SignIn extends Component {
         className={ classes.root }
       >
         <Typography variant="h5" className={ classes.title }>
-          Sign In
+          Sign Up
         </Typography>
         <TextField
           error={ showErrors && login.error }
@@ -106,12 +131,29 @@ class SignIn extends Component {
           margin="normal"
         />
         <TextField
+          error={ showErrors && email.error }
+          id="email"
+          label="Email"
+          value={ this.state.email.value }
+          onChange={ this.handleChange('email') }
+          margin="normal"
+        />
+        <TextField
           error={ showErrors && password.error }
           id="password"
           label="Password"
           type="password"
           value={ this.state.password.value }
           onChange={ this.handleChange('password') }
+          margin="normal"
+        />
+        <TextField
+          error={ showErrors && passwordConfirm.error }
+          id="passwordConfirm"
+          label="Confirm Password"
+          type="password"
+          value={ this.state.passwordConfirm.value }
+          onChange={ this.handleChange('passwordConfirm') }
           margin="normal"
         />
         <div className={ classes.buttonContainer }>
@@ -127,15 +169,12 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.auth
-});
-
 const mapDispatchToProps = dispatch => ({
-  signIn: ({ login, password }) => dispatch(authActions.signIn({
+  signUp: ({ login, password, email }) => dispatch(authActions.signUp({
     login,
-    password
+    password,
+    email
   }))
 });
 
-export const SignInPage = connect(mapStateToProps, mapDispatchToProps)((withStyles)(styles)(SignIn));
+export const SignUpPage = connect(null, mapDispatchToProps)((withStyles)(styles)(SignUp));
