@@ -81,11 +81,8 @@ class SignIn extends Component {
   };
 
   render() {
-    const { classes, user } = this.props;
+    const { classes } = this.props;
     const { login, password, showErrors } = this.state;
-    if (user.token) {
-      return (<Redirect to="/" />);
-    }
     return (
       <Grid
         container
@@ -127,10 +124,6 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.auth
-});
-
 const mapDispatchToProps = dispatch => ({
   signIn: ({ login, password }) => dispatch(authActions.signIn({
     login,
@@ -138,4 +131,4 @@ const mapDispatchToProps = dispatch => ({
   }))
 });
 
-export const SignInPage = connect(mapStateToProps, mapDispatchToProps)((withStyles)(styles)(SignIn));
+export const SignInPage = connect(null, mapDispatchToProps)((withStyles)(styles)(SignIn));

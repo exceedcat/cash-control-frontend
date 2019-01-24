@@ -4,9 +4,15 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Header } from './components/header';
 import { StarterPage } from './components/starter.page';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch
+} from 'react-router-dom';
 import { SignInPage } from './components/sign-in.page';
 import { SignUpPage } from './components/sign-up.page';
+import { connect } from 'react-redux';
 
 const styles = {
   root: {
@@ -21,14 +27,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: false
 
     };
   }
 
   render() {
-    const { classes } = this.props;
-    const { auth } = this.state;
+    const { classes, auth } = this.props;
 
     return (
       <MuiThemeProvider theme={ theme }>
@@ -46,6 +50,7 @@ class App extends Component {
               { auth && (
                 <Switch>
                   <Route path="/" exact component={ Header }/>
+                  <Redirect to="/" />
                 </Switch>)
               }
             </Fragment>
@@ -56,4 +61,8 @@ class App extends Component {
   }
 }
 
-export default (withStyles)(styles)(App);
+const mapStateToProps = state => ({
+  auth: state.auth.token
+});
+
+export default connect(mapStateToProps)((withStyles)(styles)(App));
