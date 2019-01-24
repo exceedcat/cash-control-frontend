@@ -27,6 +27,7 @@ const styles = theme => ({
 // todo: refactor validation?
 // todo: show error message
 // todo: show spinner
+// todo: submit on enter
 
 class SignUp extends Component {
   constructor(props) {
