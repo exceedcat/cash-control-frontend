@@ -50,7 +50,7 @@ const signUp = ({ login, password, email, history }) => {
       });
 
       dispatch(success(result));
-      history.push("/sigin");
+      history.push("/signin");
     }
     catch (e) {
       dispatch(failure());
