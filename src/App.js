@@ -13,7 +13,7 @@ import {
 import { SignInPage } from './components/sign-in.page';
 import { SignUpPage } from './components/sign-up.page';
 import { connect } from 'react-redux';
-import { SpendingPage } from './components/spending.page';
+import { SpendingsPage } from './components/spendings.page';
 import { AddSpendingPage } from './components/add-spending.page';
 
 
@@ -51,7 +51,7 @@ class App extends Component {
               }
               { auth && (
                 <Switch>
-                  <Route path="/" exact component={ SpendingPage }/>
+                  <Route path="/" exact component={ SpendingsPage }/>
                   <Route path="/add" exact component={ AddSpendingPage }/>
                   <Redirect to="/" />
                 </Switch>)

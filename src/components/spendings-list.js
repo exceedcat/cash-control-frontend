@@ -4,6 +4,11 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import Typography from '@material-ui/core/Typography/Typography';
 import { withStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import ListItemSecondaryAction
+  from '@material-ui/core/ListItemSecondaryAction/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   root: {
@@ -23,15 +28,20 @@ const styles = theme => ({
   }
 });
 
-const ListItemLink = (props) => <ListItem button divider
-                                          component="a" { ...props } />;
+const ListItemLink = (props) => (
+  <ListItem
+    button
+    divider
+    component={ Link }
+    { ...props }
+  />);
 
-export const SpendingsList = withStyles(styles)(({ spendings, classes }) =>
+export const SpendingsList = withStyles(styles)(({ spendings, classes, onDelete }) =>
   (<List component="section" className={ classes.root }>
     { spendings.map(spending => (
       <ListItemLink
         key={ spending.id }
-        href={`/${spending.id}`}
+        to={ `/${spending.id}` }
         className={ classes.item }
       >
         <Typography
@@ -41,6 +51,11 @@ export const SpendingsList = withStyles(styles)(({ spendings, classes }) =>
           { spending.amount } ₴
         </Typography>
         <ListItemText primary={ spending.title }/>
+        <ListItemSecondaryAction onClick={ () => onDelete(spending.id) }>
+          <IconButton aria-label="Delete">
+            <DeleteIcon/>
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItemLink>
     )) }
   </List>));

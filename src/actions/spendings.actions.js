@@ -50,7 +50,31 @@ const edit = ({ id, title, amount, date }) => {
 };
 
 const remove = ({ id }) => {
+  const userId = store.getState().user.id;
 
+  return async (dispatch) => {
+    dispatch(request());
+
+    try {
+      const result = await spendingsService.remove({ userId, id });
+      dispatch(success(result));
+    }
+    catch (e) {
+      dispatch(failure());
+    }
+  };
+
+  function request() {
+    return { type: SPENDINGS_REMOVE_REQUEST };
+  }
+
+  function success() {
+    return { type: SPENDINGS_REMOVE_SUCCESS, payload: id };
+  }
+
+  function failure() {
+    return { type: SPENDINGS_REMOVE_FAILURE };
+  }
 };
 
 export const spendingsActions = {

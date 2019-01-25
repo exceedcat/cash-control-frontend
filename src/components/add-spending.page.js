@@ -120,7 +120,7 @@ class AddSpending extends Component {
           margin="normal"
         />
         <TextField
-          error={ amount.error }
+          error={ showErrors && amount.error }
           id="amount"
           label="Amount"
           value={ amount.value }

@@ -8,6 +8,7 @@ import { SpendingsList } from './spendings-list';
 import Fab from '@material-ui/core/Fab/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
+import { spendingsActions } from '../actions/spendings.actions';
 
 const styles = theme => ({
   root: {
@@ -23,7 +24,7 @@ const styles = theme => ({
 
 const AddSpendingLink = props => <Link to="/add" { ...props } />;
 
-class Spending extends Component {
+class Spendings extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,6 +41,8 @@ class Spending extends Component {
       moment(s.date).format('YYYY-MM-DD') === this.state.date.format('YYYY-MM-DD')
     );
 
+  removeSpending = id => this.props.remove(id);
+
   render() {
     const { classes } = this.props;
     const { date } = this.state;
@@ -55,7 +58,10 @@ class Spending extends Component {
           date={ date }
           onChange={ (e) => this.updateDate(e) }
         />
-        <SpendingsList spendings={ this.getCurrentSpendings() }/>
+        <SpendingsList
+          spendings={ this.getCurrentSpendings() }
+          onDelete={ (id) => this.removeSpending(id) }
+        />
         <Fab
           color="primary"
           aria-label="Add"
@@ -72,6 +78,8 @@ class Spending extends Component {
 const mapStateToProps = state => ({
   spendings: state.spendings
 });
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  remove: id => dispatch(spendingsActions.remove({ id }))
+});
 
-export const SpendingPage = connect(mapStateToProps, mapDispatchToProps)((withStyles)(styles)(Spending));
+export const SpendingsPage = connect(mapStateToProps, mapDispatchToProps)((withStyles)(styles)(Spendings));
