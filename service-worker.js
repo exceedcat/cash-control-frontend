@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/cash-control-frontend/precache-manifest.e7dae20b97f92f3209bfe99ca49e536b.js"
+  "/cash-control-frontend/precache-manifest.1ac42999b2abb2ffcb8bad8975c3e75b.js"
 );
 
 workbox.clientsClaim();
