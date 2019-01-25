@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { auth } from './auth.reducer';
 import { user } from './user.reducer';
-import { spendings } from './spendings';
+import { spendings } from './spendings.reducer';
 
 export const store = createStore(
   combineReducers({

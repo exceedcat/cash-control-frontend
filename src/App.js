@@ -13,7 +13,8 @@ import {
 import { SignInPage } from './components/sign-in.page';
 import { SignUpPage } from './components/sign-up.page';
 import { connect } from 'react-redux';
-import { SpendingPage } from './components/spending-page';
+import { SpendingPage } from './components/spending.page';
+import { AddSpendingPage } from './components/add-spending.page';
 
 
 const styles = {
@@ -45,11 +46,13 @@ class App extends Component {
                   <Route path="/" exact component={ StarterPage }/>
                   <Route path="/signin" exact component={ SignInPage }/>
                   <Route path="/signup" exact component={ SignUpPage }/>
+                  <Redirect to="/" />
                 </Switch>)
               }
               { auth && (
                 <Switch>
                   <Route path="/" exact component={ SpendingPage }/>
+                  <Route path="/add" exact component={ AddSpendingPage }/>
                   <Redirect to="/" />
                 </Switch>)
               }

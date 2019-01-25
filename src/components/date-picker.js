@@ -57,6 +57,7 @@ class DatePickerComponent extends Component {
               onChange={ onChange }
               ref={ node => this.picker = node }
               disableFuture
+              showTodayButton
             />
           </div>
         </MuiPickersUtilsProvider>
