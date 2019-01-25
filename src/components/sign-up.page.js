@@ -7,6 +7,7 @@ import { DefaultButton } from './default-button';
 import { authActions } from '../actions/auth.actions';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography/Typography';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -95,17 +96,18 @@ class SignUp extends Component {
   };
 
   handleSubmit = () => {
-    const { signUp } = this.props;
+    const { signUp, history } = this.props;
     const { password, login, email, isValid } = this.state;
     if (!isValid) {
       this.validateForm();
-      this.setState({showErrors: true});
+      this.setState({ showErrors: true });
       return;
     }
     signUp({
       login: login.value,
       password: password.value,
-      email: email.value
+      email: email.value,
+      history
     });
   };
 
@@ -171,11 +173,12 @@ class SignUp extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  signUp: ({ login, password, email }) => dispatch(authActions.signUp({
+  signUp: ({ login, password, email, history }) => dispatch(authActions.signUp({
     login,
     password,
-    email
+    email,
+    history
   }))
 });
 
-export const SignUpPage = connect(null, mapDispatchToProps)((withStyles)(styles)(SignUp));
+export const SignUpPage = withRouter(connect(null, mapDispatchToProps)((withStyles)(styles)(SignUp)));
