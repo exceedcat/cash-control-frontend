@@ -20,7 +20,7 @@ const styles = theme => ({
   },
   amount: {
     display: 'inline-block',
-    width: 50,
+    width: 76,
     textAlign: 'right',
     background: `-webkit-linear-gradient(${theme.palette.primary.main}, ${theme.palette.gradient.purple})`,
     '-webkit-background-clip': 'text',
