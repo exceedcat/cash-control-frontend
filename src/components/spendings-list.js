@@ -25,6 +25,14 @@ const styles = theme => ({
     background: `-webkit-linear-gradient(${theme.palette.primary.main}, ${theme.palette.gradient.purple})`,
     '-webkit-background-clip': 'text',
     '-webkit-text-fill-color': 'transparent'
+  },
+  sumContainer: {
+    textAlign: 'center',
+    color: theme.palette.gradient.purple
+  },
+  sum: {
+    display: 'inline',
+    color: 'inherit'
   }
 });
 
@@ -38,6 +46,13 @@ const ListItemLink = (props) => (
 
 export const SpendingsList = withStyles(styles)(({ spendings, classes, onDelete }) =>
   (<List component="section" className={ classes.root }>
+    { spendings.length ? (
+      <Typography className={ classes.sumContainer } variant="caption">
+        sum: <Typography className={ classes.sum }>
+        { spendings.reduce((sum, spending) => sum + spending.amount, 0) }
+      </Typography>
+      </Typography>
+    ) : '' }
     { spendings.map(spending => (
       <ListItemLink
         key={ spending.id }

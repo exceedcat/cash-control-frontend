@@ -6,14 +6,7 @@ export const theme = createMuiTheme({
     primary: { main: teal[700] }, // Purple and green play nicely together.
     secondary: { main: teal.A700 }, // This is just green.A700 as hex.
     gradient: { darkBlue: '#051937', purple: '#692194' },
-    background: '#eeeeee'
+    background: { default: '#eeeeee', paper: '#ffffff' }
   },
   typography: { useNextVariants: true },
-  overrides: {
-    MuiPickersModal: {
-      dialogRoot: {
-        backgroundColor: 'white'
-      }
-    },
-  },
 });

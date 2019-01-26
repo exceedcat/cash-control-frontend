@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background
+    backgroundColor: theme.palette.background.default
   },
   buttonContainer: {
     display: 'flex',
