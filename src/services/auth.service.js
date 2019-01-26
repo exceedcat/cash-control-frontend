@@ -8,13 +8,12 @@ const signIn = async ({ login, password }) => {
     body: JSON.stringify({ login, password })
   };
 
-  let result;
+  let status;
 
-  try {
-    result = await fetch(`${url}/authenticate`, options).then(res => res.json());
-  } catch (e) {
-    console.log(e);
-  }
+  const result = await fetch(`${url}/authenticate`, options).then(res => {
+    status = res.status;
+    return res.json();
+  }).then(body => ({ ...body, status }));
 
   request.headers['x-access-token'] = result.token;
   return result;
@@ -28,15 +27,13 @@ const signUp = async ({ login, password, email }) => {
     body: JSON.stringify({ login, password, email })
   };
 
-  let result;
+  let status;
 
-  try {
-    result = await fetch(`${url}/register`, options).then(res => res.json());
-  } catch (e) {
-    console.log(e);
-  }
+  return await fetch(`${url}/register`, options).then(res => {
+    status = res.status;
+    return res.json();
+  }).then(body => ({ ...body, status }));
 
-  return result;
 };
 
 export const authService = {

@@ -24,6 +24,8 @@ const styles = theme => ({
   }
 });
 
+// todo: extract onKeyDown to helpers?
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -68,12 +70,21 @@ class SignIn extends Component {
     this.validateForm();
   };
 
+  onKeyDown = (event) => {
+    // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.handleSubmit();
+    }
+  };
+
   handleSubmit = () => {
     const { signIn } = this.props;
     const { password, login, isValid } = this.state;
     if (!isValid) {
       this.validateForm();
-      this.setState({showErrors: true});
+      this.setState({ showErrors: true });
       return;
     }
     signIn({ login: login.value, password: password.value });
@@ -100,6 +111,7 @@ class SignIn extends Component {
           value={ this.state.login.value }
           onChange={ this.handleChange('login') }
           margin="normal"
+          onKeyDown={ this.onKeyDown }
         />
         <TextField
           error={ showErrors && password.error }
@@ -109,6 +121,7 @@ class SignIn extends Component {
           value={ this.state.password.value }
           onChange={ this.handleChange('password') }
           margin="normal"
+          onKeyDown={ this.onKeyDown }
         />
         <div className={ classes.buttonContainer }>
           <DefaultButton

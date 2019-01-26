@@ -28,7 +28,6 @@ const styles = theme => ({
 // todo: refactor validation?
 // todo: show error message
 // todo: show spinner
-// todo: submit on enter
 
 class SignUp extends Component {
   constructor(props) {
@@ -95,6 +94,15 @@ class SignUp extends Component {
     this.validateForm();
   };
 
+  onKeyDown = (event) => {
+    // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.handleSubmit();
+    }
+  };
+
   handleSubmit = () => {
     const { signUp, history } = this.props;
     const { password, login, email, isValid } = this.state;
@@ -131,6 +139,7 @@ class SignUp extends Component {
           label="Login"
           value={ this.state.login.value }
           onChange={ this.handleChange('login') }
+          onKeyDown={ this.onKeyDown }
           margin="normal"
         />
         <TextField
@@ -139,6 +148,7 @@ class SignUp extends Component {
           label="Email"
           value={ this.state.email.value }
           onChange={ this.handleChange('email') }
+          onKeyDown={ this.onKeyDown }
           margin="normal"
         />
         <TextField
@@ -148,6 +158,7 @@ class SignUp extends Component {
           type="password"
           value={ this.state.password.value }
           onChange={ this.handleChange('password') }
+          onKeyDown={ this.onKeyDown }
           margin="normal"
         />
         <TextField
@@ -157,6 +168,7 @@ class SignUp extends Component {
           type="password"
           value={ this.state.passwordConfirm.value }
           onChange={ this.handleChange('passwordConfirm') }
+          onKeyDown={ this.onKeyDown }
           margin="normal"
         />
         <div className={ classes.buttonContainer }>

@@ -12,17 +12,17 @@ const signIn = ({ login, password }) => {
   return async (dispatch) => {
     dispatch(request());
 
-    try {
-      const result = await authService.signIn({
-        login,
-        password
-      });
+    const result = await authService.signIn({
+      login,
+      password
+    });
 
-      dispatch(success(result));
+    if (result.status > 299) {
+      dispatch(failure(result.message));
+      return;
     }
-    catch (e) {
-      dispatch(failure());
-    }
+
+    dispatch(success(result));
   };
 
   function request() {
@@ -33,8 +33,8 @@ const signIn = ({ login, password }) => {
     return { type: AUTH_SIGN_IN_SUCCESS, payload };
   }
 
-  function failure() {
-    return { type: AUTH_SIGN_IN_FAILURE };
+  function failure(payload) {
+    return { type: AUTH_SIGN_IN_FAILURE, payload };
   }
 };
 
@@ -42,19 +42,19 @@ const signUp = ({ login, password, email, history }) => {
   return async (dispatch) => {
     dispatch(request());
 
-    try {
-      const result = await authService.signUp({
-        login,
-        password,
-        email
-      });
+    const result = await authService.signUp({
+      login,
+      password,
+      email
+    });
 
-      dispatch(success(result));
-      history.push("/signin");
+    if (result.status > 299) {
+      dispatch(failure(result.message));
+      return;
     }
-    catch (e) {
-      dispatch(failure());
-    }
+
+    dispatch(success(result));
+    history.push('/signin');
   };
 
   function request() {
@@ -65,8 +65,8 @@ const signUp = ({ login, password, email, history }) => {
     return { type: AUTH_SIGN_UP_SUCCESS, payload };
   }
 
-  function failure() {
-    return { type: AUTH_SIGN_UP_FAILURE };
+  function failure(payload) {
+    return { type: AUTH_SIGN_UP_FAILURE, payload };
   }
 };
 
