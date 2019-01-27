@@ -15,6 +15,7 @@ import { SignUpPage } from './components/sign-up.page';
 import { connect } from 'react-redux';
 import { SpendingsPage } from './components/spendings.page';
 import { AddSpendingPage } from './components/add-spending.page';
+import { MenuDrawer } from './components/menu-drawer';
 
 
 const styles = {
@@ -29,31 +30,43 @@ const styles = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      menuOpen: false
+    };
   }
+
+  handleMenuClose = () => this.setState({menuOpen: false});
+
+  handleMenuOpen = () => this.setState({menuOpen: true});
 
   render() {
     const { classes, auth } = this.props;
+    const { menuOpen } = this.state;
 
     return (
       <MuiThemeProvider theme={ theme }>
         <div className={ classes.root }>
           <Router>
             <Fragment>
-              <Header withMenu={ auth }/>
+              <Header withMenu={ auth } handleMenuClick={ this.handleMenuOpen }/>
+              <MenuDrawer
+                open={ menuOpen }
+                handleClose={ this.handleMenuClose }
+                handleOpen={ this.handleMenuOpen }
+              />
               { !auth && (
                 <Switch>
                   <Route path="/" exact component={ StarterPage }/>
                   <Route path="/signin" exact component={ SignInPage }/>
                   <Route path="/signup" exact component={ SignUpPage }/>
-                  <Redirect to="/" />
+                  <Redirect to="/"/>
                 </Switch>)
               }
               { auth && (
                 <Switch>
                   <Route path="/" exact component={ SpendingsPage }/>
                   <Route path="/add" exact component={ AddSpendingPage }/>
-                  <Redirect to="/" />
+                  <Redirect to="/"/>
                 </Switch>)
               }
             </Fragment>

@@ -20,17 +20,21 @@ const styles = theme => ({
 });
 
 
-const AppHeader = ({ withMenu, classes }) => (
+const AppHeader = ({ withMenu, classes, handleMenuClick }) => (
   <AppBar position="static">
     <Toolbar>
       { withMenu &&
-      <IconButton className={ classes.menuButton } color="inherit"
-                  aria-label="Menu">
+      <IconButton
+        className={ classes.menuButton }
+        color="inherit"
+        aria-label="Menu"
+        onClick={ handleMenuClick }
+      >
         <MenuIcon/>
       </IconButton>
       }
       <Typography variant="h6" color="inherit">
-        <Link to="/" className={classes.link}>
+        <Link to="/" className={ classes.link }>
           { AppName }
         </Link>
       </Typography>

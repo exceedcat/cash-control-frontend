@@ -1,4 +1,4 @@
-import { AUTH_SIGN_IN_SUCCESS } from '../actions/auth.actions';
+import { AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT } from '../actions/auth.actions';
 import {
   SPENDINGS_ADD_SUCCESS,
   SPENDINGS_REMOVE_SUCCESS
@@ -14,6 +14,8 @@ export function spendings(state = initialState, action) {
       return [...state, action.payload];
     case SPENDINGS_REMOVE_SUCCESS:
       return state.filter(spending => spending.id !== action.payload);
+    case AUTH_SIGN_OUT:
+      return initialState;
     default:
       return state;
   }

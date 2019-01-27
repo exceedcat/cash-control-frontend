@@ -8,6 +8,9 @@ export const AUTH_SIGN_UP_REQUEST = 'AUTH_SIGN_UP_REQUEST';
 export const AUTH_SIGN_UP_SUCCESS = 'AUTH_SIGN_UP_SUCCESS';
 export const AUTH_SIGN_UP_FAILURE = 'AUTH_SIGN_UP_FAILURE';
 
+
+export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
+
 const signIn = ({ login, password }) => {
   return async (dispatch) => {
     dispatch(request());
@@ -70,7 +73,10 @@ const signUp = ({ login, password, email, history }) => {
   }
 };
 
+const signOut = () => (dispatch) => dispatch({ type: AUTH_SIGN_OUT });
+
 export const authActions = {
   signIn,
-  signUp
+  signUp,
+  signOut
 };
