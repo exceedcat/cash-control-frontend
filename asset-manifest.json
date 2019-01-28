@@ -1,6 +1,6 @@
 {
-  "main.js": "/cash-control-frontend/static/js/main.cce8c760.chunk.js",
-  "main.js.map": "/cash-control-frontend/static/js/main.cce8c760.chunk.js.map",
+  "main.js": "/cash-control-frontend/static/js/main.a8a469d4.chunk.js",
+  "main.js.map": "/cash-control-frontend/static/js/main.a8a469d4.chunk.js.map",
   "static/css/1.f61aa194.chunk.css": "/cash-control-frontend/static/css/1.f61aa194.chunk.css",
   "static/js/1.3ae4b854.chunk.js": "/cash-control-frontend/static/js/1.3ae4b854.chunk.js",
   "static/js/1.3ae4b854.chunk.js.map": "/cash-control-frontend/static/js/1.3ae4b854.chunk.js.map",
@@ -9,6 +9,6 @@
   "static/media/index.css": "/cash-control-frontend/static/media/roboto-latin-900italic.bc833e72.woff",
   "static/css/1.f61aa194.chunk.css.map": "/cash-control-frontend/static/css/1.f61aa194.chunk.css.map",
   "index.html": "/cash-control-frontend/index.html",
-  "precache-manifest.e901431d2d28a81c26e4e4c84dc59e40.js": "/cash-control-frontend/precache-manifest.e901431d2d28a81c26e4e4c84dc59e40.js",
+  "precache-manifest.0d0f0278cdf30bb5537da8583b249e4e.js": "/cash-control-frontend/precache-manifest.0d0f0278cdf30bb5537da8583b249e4e.js",
   "service-worker.js": "/cash-control-frontend/service-worker.js"
 }
