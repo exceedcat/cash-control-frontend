@@ -12,10 +12,10 @@ import { withRouter } from 'react-router-dom';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.default,
+    flexWrap: 'nowrap',
   },
   buttonContainer: {
-    display: 'flex',
     marginTop: 20
   },
   title: {
